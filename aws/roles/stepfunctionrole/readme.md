@@ -1,0 +1,1 @@
+# This is the role assumed by the statemachine to carry out the different tasks/jobs in the dag.

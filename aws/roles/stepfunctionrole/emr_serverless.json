@@ -1,0 +1,30 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "events:PutTargets",
+                "events:PutRule",
+                "events:DescribeRule",
+                "emr-serverless:StartJobRun",
+                "iam:PassRole",
+                "logs:*",
+                "cloudwatch:*"
+            ],
+            "Resource": [
+                "arn:aws:events:eu-north-1:<ACCOUNT_ID>:rule/StepFunctionsGetEventsForEMRServerlessApplicationRule",
+                "arn:aws:emr-serverless:eu-north-1:<ACCOUNT_ID>:/applications/*",
+                "*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "emr-serverless:*",
+                "s3:*"
+            ],
+            "Resource": "*"
+        }
+    ]
+}

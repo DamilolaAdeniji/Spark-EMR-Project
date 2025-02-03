@@ -1,0 +1,1 @@
+# This is the role assumed by the EventsBridge trigger to trigger our state machine

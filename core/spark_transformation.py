@@ -1,0 +1,53 @@
+from pyspark.sql import SparkSession
+from pyspark.sql.functions import to_timestamp, col
+
+spark = SparkSession.builder.appName("spark_transformation").getOrCreate()
+
+data = spark.read.parquet("s3://final-aws-project/raw/311-calls-data.parquet")
+
+# TODO : filter the data to only include the following columns
+
+def spark_transform(data):
+    df_filtered = data.select(
+        "address",
+        "agency_responsible",
+        "closed_date",
+        "data_as_of",
+        "data_loaded_at",
+        "lat",
+        "long",
+        "point",
+        "point_geom",
+        "requested_datetime",
+        "service_details",
+        "service_name",
+        "service_request_id",
+        "service_subtype",
+        "source",
+        "status_description",
+        "status_notes",
+        "updated_datetime",
+        "analysis_neighborhood",
+        "bos_2012",
+        "media_url",
+        "neighborhoods_sffind_boundaries",
+        "police_district",
+        "street",
+        "supervisor_district"
+    )
+
+    df_filtered = (
+        df_filtered.withColumn("closed_date", to_timestamp(col("closed_date"), "MM/dd/yyyy hh:mm:ss a"))
+        .withColumn("data_as_of", to_timestamp(col("data_as_of"), "MM/dd/yyyy hh:mm:ss a"))
+        .withColumn("data_loaded_at", to_timestamp(col("data_loaded_at"), "MM/dd/yyyy hh:mm:ss a"))
+        .withColumn("requested_datetime", to_timestamp(col("requested_datetime"), "MM/dd/yyyy hh:mm:ss a"))
+        .withColumn("updated_datetime", to_timestamp(col("updated_datetime"), "MM/dd/yyyy hh:mm:ss a"))
+        .withColumn("lat", col("lat").cast("double"))
+        .withColumn("long", col("long").cast("double"))
+    )
+# TODO : output the transformed data to an s3 bucket
+
+    return df_filtered.printSchema()
+
+if "__name__" == "__main__":
+    spark_transform(data).write.parquet("s3://final-aws-project/transformed/311-calls-data.parquet")

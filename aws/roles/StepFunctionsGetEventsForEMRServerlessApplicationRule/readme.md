@@ -1,0 +1,1 @@
+# This is the role assumed by the EMR serverless instance to execute our jobs.
