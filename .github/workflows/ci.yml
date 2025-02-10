@@ -44,7 +44,8 @@ jobs:
               uses: hashicorp/setup-terraform@v3
               with:
                   terraform_version: ${{ env.TF_VERSION}}
-
+            - name: change directory to terraform
+              run: cd terraform
             - name: format Terraform files
               id: fmt_recursive
               run: terraform fmt -recursive
