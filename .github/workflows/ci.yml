@@ -49,24 +49,31 @@ jobs:
             - name: format Terraform files
               id: fmt_recursive
               run: terraform fmt -recursive
+              working-directory: terraform
+
             - name: Terraform format
               id: fmt
               run: terraform fmt -check
+              working-directory: terraform
 
             - name: Terraform Init
               id: init
               run: terraform init
+              working-directory: terraform
 
             - name: Terraform Validate
               id: validate
               run: terraform validate -no-color
+              working-directory: terraform
 
             - name: Terraform Plan
               id: plan
               run: terraform plan -no-color  -out=tfplan
+              working-directory: terraform
 
             - name: Terraform Apply
               run: terraform apply -auto-approve tfplan
+              working-directory: terraform
 
     deploy-to-s3:
         name: Deploy to S3
