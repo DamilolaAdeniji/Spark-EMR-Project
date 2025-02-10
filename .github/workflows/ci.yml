@@ -83,4 +83,4 @@ jobs:
                   aws-region: us-east-1
 
             - name: Sync files to S3
-              run: aws s3 sync ./core s3://s3-bucket-name --acl public-read
+              run: aws s3 sync ./core s3://final-aws-project/files/ --acl public-read
