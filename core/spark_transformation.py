@@ -8,7 +8,7 @@ logging.basicConfig(
 
 spark = SparkSession.builder.appName("spark_transformation").getOrCreate()
 
-data = spark.read.parquet("s3://final-aws-project/raw/311-calls-data.parquet")
+data = spark.read.parquet("s3://final-aws-project/raw/311-calls-data.parquet") # noqa
 
 logging.info(
     'Loaded data from s3://final-aws-project/raw/311-calls-data.parquet'  # noqa
@@ -69,6 +69,6 @@ def spark_transform(data):
 
 if "__name__" == "__main__":
     spark_transform(data).write.parquet(
-        "s3://final-aws-project/transformed/311-calls-data.parquet")
+        "s3://final-aws-project/transformed/311-calls-data.parquet")   # noqa
     
-    logging.info('Data exported to s3://final-aws-project/transformed/311-calls-data.parquet')
+    logging.info('Data exported to s3://final-aws-project/transformed/311-calls-data.parquet')   # noqa
