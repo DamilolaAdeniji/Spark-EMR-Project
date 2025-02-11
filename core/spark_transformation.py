@@ -1,9 +1,18 @@
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import to_timestamp, col
+import logging
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s')
 
 spark = SparkSession.builder.appName("spark_transformation").getOrCreate()
 
 data = spark.read.parquet("s3://final-aws-project/raw/311-calls-data.parquet")
+
+logging.info(
+    'Loaded data from s3://final-aws-project/raw/311-calls-data.parquet'  # noqa
+    )
 
 # TODO : filter the data to only include the following columns
 
@@ -51,9 +60,15 @@ def spark_transform(data):
                                 col("long").cast("double"))) # noqa
 # TODO : output the transformed data to an s3 bucket
 
+    logging.info(
+    'Data transformed successfully'  # noqa
+    )
+
     return df_filtered.printSchema()
 
 
 if "__name__" == "__main__":
     spark_transform(data).write.parquet(
         "s3://final-aws-project/transformed/311-calls-data.parquet")
+    
+    logging.info('Data exported to s3://final-aws-project/transformed/311-calls-data.parquet')
