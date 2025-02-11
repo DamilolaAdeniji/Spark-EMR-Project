@@ -64,7 +64,7 @@ def spark_transform(data):
     'Data transformed successfully'  # noqa
     )
 
-    return df_filtered.printSchema()
+    return df_filtered
 
 
 if __name__ == "__main__":
