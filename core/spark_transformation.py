@@ -6,13 +6,15 @@ logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s')
 
-spark = SparkSession.builder.appName("spark_transformation").getOrCreate()  # noqa
+def generate_data():
+    spark = SparkSession.builder.appName("spark_transformation").getOrCreate()  # noqa
 
-data = spark.read.parquet("s3://final-aws-project/raw/311-calls-data.parquet") # noqa
+    data = spark.read.parquet("s3://final-aws-project/raw/311-calls-data.parquet") # noqa
 
-logging.info(
-    'Loaded data from s3://final-aws-project/raw/311-calls-data.parquet'  # noqa
-    )
+    logging.info(
+        'Loaded data from s3://final-aws-project/raw/311-calls-data.parquet'  # noqa
+        )
+    return data
 
 # TODO : filter the data to only include the following columns
 
@@ -68,6 +70,7 @@ def spark_transform(data):
 
 
 if __name__ == "__main__":
+    data = generate_data()
     spark_transform(data).write.parquet(
         "s3://final-aws-project/transformed/311-calls-data.parquet")   # noqa
     logging.info('Data exported to s3://final-aws-project/transformed/311-calls-data.parquet')   # noqa
