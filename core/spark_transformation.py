@@ -6,6 +6,7 @@ logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s')
 
+
 def generate_data():
     spark = SparkSession.builder.appName("spark_transformation").getOrCreate()  # noqa
 
