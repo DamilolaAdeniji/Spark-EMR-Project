@@ -2,9 +2,9 @@ import sys
 
 sys.path.append("/Users/Oluwadamilola/Documents/Data Engineering bootcamp/Spark-EMR-Project/")
 
-import pytest
-from pyspark.sql import SparkSession
-from pyspark.sql.types import StructType, StructField, StringType
+import pytest # type: ignore
+from pyspark.sql import SparkSession  # type: ignore
+from pyspark.sql.types import StructType, StructField, StringType # type: ignore
 from core.spark_transformation import spark_transform
 
 @pytest.fixture(scope="session")
@@ -17,11 +17,11 @@ def spark():
 
 def test_spark_transform(spark):
     sample_data = [
-        ("123 Main St", "Agency X", "03/20/2024 08:30:00 AM", "03/20/2024 09:00:00 AM",
-         "03/20/2024 09:10:00 AM", "37.7749", "-122.4194", "POINT(-122.4194 37.7749)",
-         "GeomPoint", "03/20/2024 08:00:00 AM", "Service details", "Graffiti",
-         "REQ123", "Subtype A", "Phone", "Closed", "Resolved", "03/20/2024 10:00:00 AM",
-         "Neighborhood A", "BOS District", "http://media.url", "SF Boundaries",
+        ("123 Main St", "Agency X", "03/20/2024 08:30:00 AM", "03/20/2024 09:00:00 AM", # noqa
+         "03/20/2024 09:10:00 AM", "37.7749", "-122.4194", "POINT(-122.4194 37.7749)", # noqa
+         "GeomPoint", "03/20/2024 08:00:00 AM", "Service details", "Graffiti", # noqa
+         "REQ123", "Subtype A", "Phone", "Closed", "Resolved", "03/20/2024 10:00:00 AM", # noqa
+         "Neighborhood A", "BOS District", "http://media.url", "SF Boundaries", # noqa
          "Police District 1", "Main St", "Supervisor 1")
     ]
 
@@ -59,11 +59,11 @@ def test_spark_transform(spark):
 
     # Check that all required columns exist
     expected_columns = [
-        "address", "agency_responsible", "closed_date", "data_as_of", "data_loaded_at",
-        "lat", "long", "point", "point_geom", "requested_datetime", "service_details",
+        "address", "agency_responsible", "closed_date", "data_as_of", "data_loaded_at", # noqa
+        "lat", "long", "point", "point_geom", "requested_datetime", "service_details", # noqa
         "service_name", "service_request_id", "service_subtype", "source",
         "status_description", "status_notes", "updated_datetime",
-        "analysis_neighborhood", "bos_2012", "media_url", "neighborhoods_sffind_boundaries",
+        "analysis_neighborhood", "bos_2012", "media_url", "neighborhoods_sffind_boundaries", # noqa
         "police_district", "street", "supervisor_district"
     ]
 
